@@ -26,4 +26,4 @@ devolver false.
 El otro concepto que entro en juego en este punto es el de polimorfismo ya que me permite tratar de distinta forma a los predicados
 de creeEn y suenio y de esta forma tener todos los suenios de una persona y en quien cree dicha persona.
 */
-
+ 
