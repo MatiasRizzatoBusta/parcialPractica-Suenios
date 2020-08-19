@@ -16,10 +16,10 @@ creeEn(macarena,magoCapria).
 creeEn(macarena,campanita).
 %diego no cree en nadie asi que no lo pongo para que de falso por universo cerrado.
 
-%suenio(Persona,tipoDeSuenio).
 %ganarLoteria([NumerosApostados]).
 %futbolistaEn(Equipo).
 %cantante(DiscosVendidos).
+%suenio(Persona,tipoDeSuenio).
 
 suenio(gabriel,ganarLoteria([5,9])).
 suenio(gabriel,futbolistaEn(arsenal)).
@@ -66,7 +66,7 @@ dificultadSuenio(futbolistaEn(Equipo),Dificultad):-
     Dificultad is 16.
 
  
-tienenQuimica(Personaje,Persona):-
+tienenQuimica(Persona,Personaje):-
     creeEn(Persona,Personaje),
     criterioPersonaje(Personaje,Persona).
 
@@ -86,3 +86,28 @@ esSuenioPuro(futbolistaEn(_)).
 esSuenioPuro(cantante(DiscosVendidos)):-
     DiscosVendidos =< 200000.
 
+amigoDe(campanita,losReyesMagos).
+amigoDe(campanita,conejoDePascua).
+amigoDe(conejoDePascua,cavenaghi).
+%hago el predicado simetrico.
+sonAmigos(X,Y):- 
+    amigoDe(X,Y).
+sonAmigos(Y,X):- 
+    amigoDe(Y,X).
+
+enfermo(conejoDePascua).
+enfermo(campanita).
+enfermo(reyesMagos).
+
+puedeAlegrar(Personaje,Persona):-
+    personaje(Personaje),
+    suenio(Persona,_), % tiene al menos un suenio
+    tienenQuimica(Persona,Personaje),
+    noEstaEnfermo(Personaje).
+
+noEstaEnfermo(Personaje):- % el personajeEstaEnfermo
+    not(enfermo(Personaje)).
+
+noEstaEnfermo(Personaje):- %amigo indirecto.
+    sonAmigos(Personaje,Amigo),
+    noEstaEnfermo(Amigo).
