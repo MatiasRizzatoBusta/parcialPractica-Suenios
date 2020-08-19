@@ -1,3 +1,11 @@
+%personaje(Personaje).
+personaje(campanita).
+personaje(magoDeOz).
+personaje(cavenaghi).
+personaje(conejoDePascua).
+personaje(reyesMagos).
+personaje(magoCapria).
+
 %creeEn(persona,CreeEn).
 creeEn(gabriel,campanita).
 creeEn(gabriel,magoDeOz).
@@ -58,3 +66,23 @@ dificultadSuenio(futbolistaEn(Equipo),Dificultad):-
     Dificultad is 16.
 
  
+tienenQuimica(Personaje,Persona):-
+    creeEn(Persona,Personaje),
+    criterioPersonaje(Personaje,Persona).
+
+criterioPersonaje(campanita,Persona):-
+    suenio(Persona,Suenio),
+    dificultadSuenio(Suenio,Dificultad),
+    Dificultad < 5. % tiene al menos 1 de dificultad menor a 5
+
+criterioPersonaje(Personaje,Persona):-
+    personaje(Personaje), % me aseguro que sea un personaje
+    suenio(Persona,Suenio),
+    esSuenioPuro(Suenio),
+    not(esAmbicioso(Persona)).
+
+esSuenioPuro(futbolistaEn(_)).
+
+esSuenioPuro(cantante(DiscosVendidos)):-
+    DiscosVendidos =< 200000.
+
